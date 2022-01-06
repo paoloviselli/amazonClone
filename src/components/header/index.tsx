@@ -1,11 +1,12 @@
-import { HeaderContainer, LogoContainer } from "./styles";
+import Logo from "../shared/Logo";
+import { HeaderContainer } from "./styles";
 
 interface HeaderProps {}
 
 const Header: React.FunctionComponent<HeaderProps> = () => {
   return (
     <HeaderContainer>
-      <LogoContainer></LogoContainer>
+      <Logo />
     </HeaderContainer>
   );
 };
