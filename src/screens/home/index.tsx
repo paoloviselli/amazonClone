@@ -6,22 +6,28 @@ import NFL from "../../../public/NFL.jpeg";
 
 const DUMMY_DATA = [
   {
-    id: 0,
+    id: "0",
     title: "Crime and punishment",
     img: itemPic,
-    price: "£9.99",
+    price: 10,
+    quantity: 0,
+    orderId: "",
   },
   {
-    id: 1,
+    id: "1",
     title: "NFL Football",
     img: NFL,
-    price: "£29.99",
+    price: 20,
+    quantity: 0,
+    orderId: "",
   },
   {
-    id: 2,
+    id: "2",
     title: "NFL Football",
     img: NFL,
-    price: "£29.99",
+    price: 5,
+    quantity: 0,
+    orderId: "",
   },
 ];
 
@@ -33,12 +39,7 @@ const Homepage: React.FunctionComponent<HomepageProps> = () => {
       <Header />
       <HomepageContainer>
         {DUMMY_DATA.map((el) => (
-          <ItemCard
-            key={el.id}
-            image={el.img}
-            title={el.title}
-            price={el.price}
-          />
+          <ItemCard item={el} key={el.id} image={el.img} title={el.title} />
         ))}
       </HomepageContainer>
     </ScreenContainer>

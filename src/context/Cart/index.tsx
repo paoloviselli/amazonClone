@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { Item } from "../../types/item/item";
+
 import { calculateItemPrice } from "../../utils/priceCalculations";
 
 export type Pricing = {
@@ -64,9 +65,9 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
       });
       if (counter === 0) {
         setCart((oldCart) => [...oldCart, { ...newItem, orderId: v4() }]);
-      } else {
-        setCart((oldCart) => [...oldCart, { ...newItem, orderId: v4() }]);
       }
+    } else {
+      setCart((oldCart) => [...oldCart, { ...newItem, orderId: v4() }]);
     }
   };
 

@@ -4,7 +4,7 @@ export const HeaderContainer = styled.div`
   display: felx;
   height: 10%;
   width: 100%;
-  justify-content: felx-start;
+  justify-content: space-between;
   background-color: red;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primaryBlue};
