@@ -2,7 +2,7 @@ export type Item = {
   id: string;
   title: string;
   //find way to use img as string as done in appeteat
-  img: string;
+  img: StaticImageData;
   price: number;
   quantity: number;
   orderId: string;
