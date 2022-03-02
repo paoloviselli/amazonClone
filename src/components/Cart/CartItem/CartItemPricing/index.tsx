@@ -1,18 +1,12 @@
 import { CartItemPricingContainer } from "./styles";
 
-interface CartItemPricingProps {
-  price: number;
-  amount: number;
-}
+interface CartItemPricingProps {}
 
-const CartItemPricing: React.FunctionComponent<CartItemPricingProps> = ({
-  price,
-  amount,
-}) => {
+const CartItemPricing: React.FunctionComponent<CartItemPricingProps> = ({}) => {
   return (
     <CartItemPricingContainer>
-      <p>{price}</p>
-      <p>{amount}</p>
+      <p>£33</p>
+      <p>3</p>
     </CartItemPricingContainer>
   );
 };

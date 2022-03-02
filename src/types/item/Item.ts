@@ -1,9 +1,9 @@
 export type Item = {
   id: string;
-  title: string;
-  //find way to use img as string as done in appeteat
-  img: StaticImageData;
+  image: string;
+  name: string;
   price: number;
   quantity: number;
-  orderId: string;
+  stockAmount: number;
+  //stockAmount is the number of items available in storage, quantity is used to indicate the number of items in a users order
 };

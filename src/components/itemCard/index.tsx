@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Item } from "../../types/item/item";
+import { Item } from "../../types/item/Item";
 import Text from "../shared/Text";
 import AddToCartButton from "./AddToCartButton";
 
@@ -13,15 +13,9 @@ import {
 
 interface ItemCardProps {
   item: Item;
-  title: string;
-  image: StaticImageData;
 }
 
-const ItemCard: React.FunctionComponent<ItemCardProps> = ({
-  title,
-  image,
-  item,
-}) => {
+const ItemCard: React.FunctionComponent<ItemCardProps> = ({ item }) => {
   const [addedToCart, setAddedToCart] = useState(false);
 
   // const addToCartHandler = () => {
@@ -35,12 +29,17 @@ const ItemCard: React.FunctionComponent<ItemCardProps> = ({
     <ItemCardContainer>
       <TitleContainer>
         <Text color="primary" fontSize={20} bold>
-          {title}
+          {item.name}
         </Text>
       </TitleContainer>
 
       <PictureContainer>
-        <Image src={image} alt="Item picture" layout="fill" objectFit="fill" />
+        <Image
+          src={item.image}
+          alt="Item picture"
+          layout="fill"
+          objectFit="fill"
+        />
       </PictureContainer>
       <AddToCartButtonContainer>
         <AddToCartButton item={item} />

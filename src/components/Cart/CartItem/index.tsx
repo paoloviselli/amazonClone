@@ -12,10 +12,7 @@ const CartItem: React.FunctionComponent<CartItemProps> = ({ item }) => {
     <CartItemContainer>
       <CartItemImage />
       <CartItemInfo />
-      <CartItemPricing
-        price={calculateItemPrice(item)}
-        amount={item.quantity}
-      />
+      <CartItemPricing />
     </CartItemContainer>
   );
 };
