@@ -10,6 +10,7 @@ const CartList: React.FunctionComponent<CartListProps> = ({ item }) => {
   return (
     <CartListContainer>
       <CartItem item={item} />
+      <CartItem item={item} />
     </CartListContainer>
   );
 };

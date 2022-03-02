@@ -1,114 +1,105 @@
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
-import { Item } from "../../types/item/item";
+import { Item } from "../../types/item/Item";
+import { db } from "../../../firebase/clientApp";
 
 import { calculateItemPrice } from "../../utils/priceCalculations";
+import { doc } from "firebase/firestore";
 
 export type Pricing = {
-  subtotal: number;
-  deliveryFee: number;
   total: number;
-  //   checkoutType: "prime" | "normal";
 };
 
-type AddItem = Omit<Item, "orderId">;
+// type AddItem = Omit<Item, "orderId">;
 interface CartContext {
-  cart: Item[];
-  addItemToCart: (item: AddItem) => void;
-  updateItemQuantity: (item: Item, amount: number) => void;
-  deleteItemFromCart: (item: string) => void;
-  pricing: Pricing;
+  cart?: Cart;
+  addItemToCart: (item: Item) => void;
+  deleteItemFromCart: (item: Item) => void;
   clearCart: () => void;
-  //   setPricingType: (p: "prime" | "normal") => void;
+  updateItemQuantity: (item: Item, amount: number) => void;
+  pricing: Pricing;
 }
 
+type Cart = { cartItems: Item[] };
+
 export const CartContext = React.createContext<CartContext>({
-  cart: [],
+  cart: { cartItems: [] },
   addItemToCart: () => {},
   deleteItemFromCart: () => {},
+  clearCart: () => {},
   updateItemQuantity: () => {},
   pricing: {
-    subtotal: 0,
     total: 0,
-    deliveryFee: 0,
-    // checkoutType: "normal",
   },
-  clearCart: () => {},
-  //   setPricingType: () => {},
 });
-
-////////////////////
 
 interface CartProviderProps {}
 
 const CartProvider: React.FunctionComponent<CartProviderProps> = ({
   children,
 }) => {
-  const [cart, setCart] = useState<Item[]>([]);
+  const [cart, setCart] = useState<Cart>({ cartItems: [] });
+  const [pricing, setPricing] = useState<Pricing>({ total: 0 });
 
-  const [pricing, setPricing] = useState<Pricing>({
-    subtotal: 0,
-    deliveryFee: 0,
-    total: 0,
-  });
+  const addItemToCart = async (item: Item) => {
+    const oldCart = (await (
+      await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
+    ).data()) as Cart;
 
-  const addItemToCart = (newItem: AddItem) => {
-    const { quantity, ...itemKeys } = newItem;
-    if (cart.length > 0) {
-      let counter = 0;
-      cart.forEach((item: Item) => {
-        const { orderId, quantity, ...oldItemKeys } = item;
-        if (JSON.stringify(oldItemKeys) === JSON.stringify(itemKeys)) {
-          updateItemQuantity(item, newItem.quantity + item.quantity);
-          counter++;
-        }
-      });
-      if (counter === 0) {
-        setCart((oldCart) => [...oldCart, { ...newItem, orderId: v4() }]);
-      }
-    } else {
-      setCart((oldCart) => [...oldCart, { ...newItem, orderId: v4() }]);
-    }
+    const newCart = { cartItems: [...oldCart.cartItems, item] };
+
+    setCart(newCart);
+
+    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(newCart);
   };
 
-  const updateItemQuantity = (newItem: Item, amount: number) => {
-    setCart((oldCart) =>
-      oldCart.map((item) =>
-        newItem.orderId === item.orderId ? { ...item, quantity: amount } : item
-      )
-    );
-  };
+  const deleteItemFromCart = async (item: Item) => {
+    const oldCart = (await (
+      await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
+    ).data()) as Cart;
 
-  const deleteItemFromCart = (itemId: string) => {
-    setCart((oldCart) => oldCart.filter((item) => item.orderId !== itemId));
+    const newCart = {
+      cartItems: oldCart.cartItems.filter((el) => el.id !== item.id),
+    };
+
+    setCart(newCart);
+
+    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(newCart);
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart({ cartItems: [] });
+
+    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cart);
   };
 
-  useEffect(() => {
-    const subtotal = cart.reduce(
-      (acc, item) => acc + calculateItemPrice(item),
-      0
-    );
+  const updateItemQuantity = async (item: Item, amount: number) => {
+    const oldCart = (await (
+      await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
+    ).data()) as Cart;
 
-    setPricing({
-      subtotal: subtotal,
-      total: subtotal,
-      deliveryFee: 0,
-    });
-  }, [cart]);
+    const cartToUpdate = oldCart.cartItems.filter((el) => el.id === item.id);
+
+    cartToUpdate[0].quantity = amount;
+
+    //no you need to check that the item is not already existent in the cart, and if it is then increase the quantity by 1
+    //also if on the cart the person edits the amount number you should replace the curernt ammount with that new ammount the user inserted
+    // fianlly you have to create the functionality for which if the user clicks on the arrows up or down on the cart then the amount increase or decreases by a value of 1 for each click
+  };
+
+  for (let i = 0; i < cart.cartItems.length; i++) {
+    cart.cartItems[i].quantity * cart.cartItems[i].price;
+  }
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        updateItemQuantity,
-        deleteItemFromCart,
         addItemToCart,
-        pricing,
+        deleteItemFromCart,
         clearCart,
+        updateItemQuantity,
+        pricing,
       }}
     >
       {children}

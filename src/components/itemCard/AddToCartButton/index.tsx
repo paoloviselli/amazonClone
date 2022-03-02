@@ -8,30 +8,33 @@ import {
   fixDecimals,
 } from "../../../utils/priceCalculations";
 
+import { db } from "../../../../firebase/clientApp";
+import { getFirestore, doc } from "firebase/firestore";
+
 interface AddToCartButtonProps {
   item: Item;
 }
 
+type Cart = {
+  cartItems: string[];
+};
+
 const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
   item,
 }) => {
-  //set default amount to 1
-  const [amount, setAmount] = useState(1);
-  const { addItemToCart, cart, pricing } = useCart();
+  // const data = {
+  //   name: "Crime and Punishment",
+  //   quantity: 30,
+  //   price: 12.99,
+  //   id: "123",
+  //   stockAmount: 300,
+  // };
 
-  const price = fixDecimals(
-    calculateItemPrice({
-      price: item.price,
-      quantity: amount,
-    })
-  ).toFixed(2);
+  const ctx = useCart();
 
   const onClick = () => {
-    setAmount((prev) => prev + 1);
-    addItemToCart({ ...item, quantity: amount });
-    console.log(cart.length);
-    console.log(price);
-    console.log(pricing.subtotal);
+    ctx.addItemToCart(item);
+    console.log(ctx.cart?.cartItems.length);
   };
 
   return (
