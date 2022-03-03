@@ -14,16 +14,11 @@ export const CartItemContainer = styled.div`
 export const CartItemImage = styled.div`
   display: flex;
   width: 25%;
+  position: relative;
   min-width: ${({ theme }) => theme.spacing.multiple(28)};
   max-width: ${({ theme }) => theme.spacing.multiple(28)};
+  min-height: ${({ theme }) => theme.spacing.multiple(26)};
+  max-height: ${({ theme }) => theme.spacing.multiple(26)};
   margin: ${({ theme }) => theme.spacing.double};
-  background-color: ${({ theme }) => theme.colors.white};
-`;
-
-export const CartItemInfo = styled.div`
-  display: flex;
-  width: 60%;
-  min-width: ${({ theme }) => theme.spacing.multiple(20)};
-  margin: ${({ theme }) => theme.spacing.double} 0;
   background-color: ${({ theme }) => theme.colors.white};
 `;

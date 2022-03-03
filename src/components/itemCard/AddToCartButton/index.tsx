@@ -34,6 +34,7 @@ const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
 
   const onClick = () => {
     ctx.addItemToCart(item);
+    // ctx.clearCart();
     console.log(ctx.cart?.cartItems.length);
   };
 

@@ -1,7 +1,11 @@
 import CartItemPricing from "./CartItemPricing";
-import { CartItemContainer, CartItemImage, CartItemInfo } from "./styles";
 import { Item } from "../../../types/item/item";
 import { calculateItemPrice } from "../../../utils/priceCalculations";
+import CartItemCTA from "./CartItemCTA";
+
+import { CartItemContainer, CartItemImage } from "./styles";
+import Image from "next/image";
+import ItemCard from "../../itemCard";
 
 interface CartItemProps {
   item: Item;
@@ -10,9 +14,11 @@ interface CartItemProps {
 const CartItem: React.FunctionComponent<CartItemProps> = ({ item }) => {
   return (
     <CartItemContainer>
-      <CartItemImage />
-      <CartItemInfo />
-      <CartItemPricing />
+      <CartItemImage>
+        <Image src={item.image} alt="cartItem Pic" layout="fill" />
+      </CartItemImage>
+      <CartItemCTA item={item} />
+      <CartItemPricing item={item} />
     </CartItemContainer>
   );
 };
