@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../../firebase/clientApp";
 import { Item } from "../../types/item/Item";
 import { sendData } from "next/dist/server/api-utils";
+import useStorage from "../../hooks/useStorage";
 
 // const DUMMY_DATA = [
 //   {
@@ -38,26 +39,30 @@ import { sendData } from "next/dist/server/api-utils";
 //   },
 // ];
 
-type Storage = { storageItems: Item[] };
+// type Storage = { storageItems: Item[] };
 
 interface HomepageProps {}
 
 const Homepage: React.FunctionComponent<HomepageProps> = () => {
-  const [data, setData] = useState<Storage>({ storageItems: [] });
+  const { storage } = useStorage();
 
-  useEffect(() => {
-    const fetchHandler = async () => {
-      const fetchedData = (await (
-        await db.collection("storage").doc("vJ93ZkKjkBUnjzSIkEFu").get()
-      ).data()) as Storage;
+  console.table(storage?.storageItems);
 
-      console.table(fetchedData.storageItems);
+  // const [data, setData] = useState<Storage>({ storageItems: [] });
 
-      setData(fetchedData);
-    };
+  // useEffect(() => {
+  //   const fetchHandler = async () => {
+  //     const fetchedData = (await (
+  //       await db.collection("storage").doc("vJ93ZkKjkBUnjzSIkEFu").get()
+  //     ).data()) as Storage;
 
-    fetchHandler();
-  }, []);
+  //     // console.table(fetchedData.storageItems);
+
+  //     setData(fetchedData);
+  //   };
+
+  //   fetchHandler();
+  // }, []);
 
   // //pushes Dummy Data in Firebase to set Storage Items
   // useEffect(() => {
@@ -71,7 +76,7 @@ const Homepage: React.FunctionComponent<HomepageProps> = () => {
     <ScreenContainer>
       <Header />
       <HomepageContainer>
-        {data.storageItems.map((el) => (
+        {storage?.storageItems.map((el) => (
           <ItemCard item={el} key={el.id} />
         ))}
       </HomepageContainer>

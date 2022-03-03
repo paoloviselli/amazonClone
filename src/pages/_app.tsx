@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import CartProvider from "../context/Cart";
+import StorageProvider from "../context/Storage";
 import theme, { GlobalStyle } from "../theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,9 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyle />
       <CartProvider>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <StorageProvider>
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </StorageProvider>
       </CartProvider>
     </>
   );
