@@ -1,8 +1,9 @@
+import { realpathSync } from "fs";
 import styled from "styled-components";
 
 interface TitleProps {
   fontSize: number;
-  color: "primary" | "secondary" | "active";
+  color: "primary" | "secondary" | "active" | "clickable";
   bold?: boolean;
   light?: boolean;
   align: string;
@@ -32,6 +33,10 @@ export const TitleText = styled.p<TitleProps>`
 
       case "active": {
         return theme.colors.active;
+      }
+
+      case "clickable": {
+        return theme.colors.linkBlue;
       }
 
       default:

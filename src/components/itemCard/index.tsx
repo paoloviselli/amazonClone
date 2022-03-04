@@ -8,6 +8,7 @@ import {
   AddToCartButtonContainer,
   ItemCardContainer,
   PictureContainer,
+  PriceContainer,
   TitleContainer,
 } from "./styles";
 
@@ -18,20 +19,18 @@ interface ItemCardProps {
 const ItemCard: React.FunctionComponent<ItemCardProps> = ({ item }) => {
   const [addedToCart, setAddedToCart] = useState(false);
 
-  // const addToCartHandler = () => {
-  //   setAddedToCart(true);
-  //   console.log("CLICKED");
-  // };
-
-  // console.log(addedToCart, "yesss");
-
   return (
     <ItemCardContainer>
       <TitleContainer>
-        <Text color="primary" fontSize={20} bold>
+        <Text color="primary" fontSize={18}>
           {item.name}
         </Text>
       </TitleContainer>
+      <PriceContainer>
+        <Text color="primary" fontSize={16} bold>
+          £ {item.price}
+        </Text>
+      </PriceContainer>
 
       <PictureContainer>
         <Image

@@ -1,26 +1,44 @@
+import Header from "../../components/Header";
 import CartList from "../../components/Cart/CartList";
 import CartSummary from "../../components/Cart/CartSummary";
-import Header from "../../components/Header";
-import ItemCard from "../../components/ItemCard";
-import { Item } from "../../types/item/item";
-import { CartScreenContainer, ScreenContainer } from "./styles";
+import Text from "../../components/shared/Text";
+import Link from "next/link";
 import useCart from "../../hooks/useCart";
-import { useEffect } from "react";
+import { Cart } from "../../context/Cart";
 
-interface CartProps {
-  item: Item;
-}
+import {
+  CartListContainer,
+  CartScreenContainer,
+  ScreenContainer,
+} from "./styles";
 
-const Cart: React.FunctionComponent<CartProps> = ({ item }) => {
-  const ctx = useCart();
+interface CartProps {}
 
-  const cart = ctx.cart?.cartItems[0] as Item;
+const Cart: React.FunctionComponent<CartProps> = () => {
+  const { cart } = useCart();
+
+  const cartItem = cart?.cartItems[0];
+
+  // if (!cartItem) {
+  //   return <>cart is empty</>;
+  // }
+
+  //refetch cart and then setCart(newFetchCart)
 
   return (
     <ScreenContainer>
       <Header />
       <CartScreenContainer>
-        <CartList item={cart} />
+        {!cartItem ? (
+          <CartListContainer>
+            <Text fontSize={30} color="primary">
+              Cart is empty
+            </Text>
+            <Link href="/displays">Add something to it</Link>
+          </CartListContainer>
+        ) : (
+          <CartList item={cartItem} />
+        )}
         <CartSummary />
       </CartScreenContainer>
     </ScreenContainer>

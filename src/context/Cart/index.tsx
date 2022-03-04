@@ -3,11 +3,12 @@ import { v4 } from "uuid";
 import { Item } from "../../types/item/Item";
 import { db } from "../../../firebase/clientApp";
 
-import { calculateItemPrice } from "../../utils/priceCalculations";
+import { calculateItemPrice, fixDecimals } from "../../utils/priceCalculations";
 import { doc } from "firebase/firestore";
 
 export type Pricing = {
   total: number;
+  totalQuantity: number;
 };
 
 // type AddItem = Omit<Item, "orderId">;
@@ -18,9 +19,11 @@ interface CartContext {
   clearCart: () => void;
   updateItemQuantity: (item: Item, amount: number) => void;
   pricing: Pricing;
+  cartSet: (newCart: Cart) => void;
+  isLoading: boolean;
 }
 
-type Cart = { cartItems: Item[] };
+export type Cart = { cartItems: Item[] };
 
 export const CartContext = React.createContext<CartContext>({
   cart: { cartItems: [] },
@@ -30,7 +33,10 @@ export const CartContext = React.createContext<CartContext>({
   updateItemQuantity: () => {},
   pricing: {
     total: 0,
+    totalQuantity: 0,
   },
+  cartSet: () => {},
+  isLoading: true,
 });
 
 interface CartProviderProps {}
@@ -39,7 +45,15 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
   children,
 }) => {
   const [cart, setCart] = useState<Cart>({ cartItems: [] });
-  const [pricing, setPricing] = useState<Pricing>({ total: 0 });
+  const [pricing, setPricing] = useState<Pricing>({
+    total: 0,
+    totalQuantity: 0,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const cartSet = (newCart: Cart) => {
+    setCart(newCart);
+  };
 
   //adds Items to cart and checks if they are already in the cart, then it adds +1 to the quantity of that item
   const addItemToCart = async (item: Item) => {
@@ -47,19 +61,38 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
       await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
     ).data()) as Cart;
 
-    const index = oldCart.cartItems.findIndex((el) => el.id === item.id);
+    // const index = oldCart.cartItems.findIndex((el) => el.id === item.id);
 
-    const cartCheck = { ...oldCart };
+    // const cartCheck = { ...oldCart };
 
-    if (!cartCheck.cartItems[index]) {
-      const newCart = { cartItems: [...oldCart.cartItems, item] };
+    // if (!cartCheck.cartItems[index]) {
+    //   const newCart = { cartItems: [...oldCart.cartItems, item] };
 
-      setCart(newCart);
-      db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(newCart);
+    //   setCart(newCart);
+    //   db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(newCart);
+    // } else {
+    //   cartCheck.cartItems[index].quantity += 1;
+    //   db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cartCheck);
+    // }
+
+    const cartItem = oldCart.cartItems.find(
+      (oldItems) => oldItems.id === item.id
+    );
+    const cartToChange = { ...oldCart };
+
+    console.log({ cartItem, item });
+
+    if (cartItem) {
+      cartToChange.cartItems = oldCart.cartItems.map((item) =>
+        item.id === cartItem.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : item
+      );
     } else {
-      cartCheck.cartItems[index].quantity += 1;
-      db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cartCheck);
+      cartToChange.cartItems.push({ ...item, quantity: 1 });
     }
+
+    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cartToChange);
   };
 
   //filters cart array in Local and overwrites firebase Cart with new cart without the deleted array
@@ -90,26 +123,35 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
       await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
     ).data()) as Cart;
 
+    // setCart((oldCart)=> oldCart.cartItems.map((item) => newItem.id === item.id ? {...item, quantity: newAmount} : item))
+
     const index = oldCart.cartItems.findIndex((el) => el.id === item.id);
 
     oldCart.cartItems[index].quantity = newAmount;
 
     setCart(oldCart);
 
-    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cart);
-
-    //no you need to check that the item is not already existent in the cart, and if it is then increase the quantity by 1
-    //also if on the cart the person edits the amount number you should replace the curernt ammount with that new ammount the user inserted
-    // fianlly you have to create the functionality for which if the user clicks on the arrows up or down on the cart then the amount increase or decreases by a value of 1 for each click
+    db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(oldCart);
   };
 
-  // useEffect(() => {
-  //   for (let i = 0; i < cart.cartItems.length; i++) {
-  //     const total = cart.cartItems[i].quantity * cart.cartItems[i].price;
-  //   }
-  // }, []);
-
+  //calculates the total cart value everytime the application is run or everytime there is a change in the array [cart]
   useEffect(() => {
+    const total = cart.cartItems.reduce(
+      (acc, item) => acc + calculateItemPrice(item),
+      0
+    );
+
+    const totalQuantity = cart.cartItems.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+
+    setPricing({ total: fixDecimals(total), totalQuantity });
+  }, [cart]);
+
+  //fetches data from Firebase everytime the app is ran
+  useEffect(() => {
+    setIsLoading(true);
     const fetchHandeler = async () => {
       const cartData = (await (
         await db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").get()
@@ -118,16 +160,8 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
     };
 
     fetchHandeler();
+    setIsLoading(false);
   }, []);
-
-  useEffect(() => {
-    const total = cart.cartItems.reduce(
-      (acc, item) => acc + calculateItemPrice(item),
-      0
-    );
-
-    setPricing({ total: total });
-  }, [cart]);
 
   return (
     <CartContext.Provider
@@ -138,6 +172,8 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
         clearCart,
         updateItemQuantity,
         pricing,
+        cartSet,
+        isLoading,
       }}
     >
       {children}

@@ -10,8 +10,8 @@ export const ScreenContainer = styled.div`
 
 export const HomepageContainer = styled.div`
   display: flex;
-  height: 90%;
-  width: 100%;
+
+  flex-wrap: wrap;
   background-color: ${({ theme }) => theme.colors.homeBackground};
   //
   justify-content: center;
