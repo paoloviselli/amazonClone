@@ -2,7 +2,7 @@ import Text from "../../shared/Text";
 import { ButtonContainer } from "./styles";
 import useCart from "../../../hooks/useCart";
 import { useState } from "react";
-import { Item } from "../../../types/item/item";
+import { Item } from "../../../types/item/Item";
 import {
   calculateItemPrice,
   fixDecimals,

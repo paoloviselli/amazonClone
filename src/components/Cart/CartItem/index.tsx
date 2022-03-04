@@ -1,6 +1,6 @@
 import CartItemPricing from "./CartItemPricing";
 import { Item } from "../../../types/item/Item";
-import { calculateItemPrice } from "../../../utils/priceCalculations";
+
 import CartItemCTA from "./CartItemCTA";
 
 import { CartItemContainer, CartItemImage } from "./styles";

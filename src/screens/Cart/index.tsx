@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/header";
 import CartList from "../../components/Cart/CartList";
 import CartSummary from "../../components/Cart/CartSummary";
 import Text from "../../components/shared/Text";

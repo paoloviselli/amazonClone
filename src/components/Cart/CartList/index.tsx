@@ -1,8 +1,8 @@
 import useCart from "../../../hooks/useCart";
-import { Item } from "../../../types/item/item";
+import { Item } from "../../../types/item/Item";
 import Text from "../../shared/Text";
 import CartItem from "../CartItem";
-import { CartListContainer, DivLine, TitleContainer } from "./styles";
+import { CartListContainer, DivLine } from "./styles";
 
 interface CartListProps {
   item: Item;

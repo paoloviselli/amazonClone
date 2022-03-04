@@ -1,4 +1,4 @@
-import { Item } from "../types/item/item";
+import { Item } from "../types/item/Item";
 
 export const fixDecimals = (n: number) =>
   Math.round((n + Number.EPSILON) * 100) / 100;

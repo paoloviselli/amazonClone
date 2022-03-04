@@ -1,5 +1,5 @@
-import Header from "../../components/Header";
-import ItemCard from "../../components/ItemCard";
+import Header from "../../components/header";
+import ItemCard from "../../components/itemCard";
 import { HomepageContainer, ScreenContainer } from "./styles";
 import itemPic from "../../../public/Crime-and-punishment.jpeg";
 import NFL from "../../../public/NFL.jpeg";
