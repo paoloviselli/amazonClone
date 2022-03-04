@@ -1,8 +1,6 @@
 import Homepage from "../../screens/Home";
 
-interface HomeProps {}
-
-const HomeScreen: React.FunctionComponent<HomeProps> = () => {
+const HomeScreen: React.FunctionComponent = () => {
   return <Homepage />;
 };
 

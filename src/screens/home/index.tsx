@@ -1,12 +1,6 @@
 import Header from "../../components/header";
 import ItemCard from "../../components/itemCard";
 import { HomepageContainer, ScreenContainer } from "./styles";
-import itemPic from "../../../public/Crime-and-punishment.jpeg";
-import NFL from "../../../public/NFL.jpeg";
-import { useEffect, useState } from "react";
-import { db } from "../../../firebase/clientApp";
-import { Item } from "../../types/item/Item";
-import { sendData } from "next/dist/server/api-utils";
 import useStorage from "../../hooks/useStorage";
 
 // const DUMMY_DATA = [
@@ -78,7 +72,6 @@ const Homepage: React.FunctionComponent<HomepageProps> = () => {
   //     .set({ storageItems: DUMMY_DATA });
   // }, []);
 
-  interface HomepageProps {}
   return (
     <ScreenContainer>
       <Header />
