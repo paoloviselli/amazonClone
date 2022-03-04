@@ -1,7 +1,10 @@
-import Homepage from "../../screens/Home";
+// import Homepage from "../../screens/Home";
 
 const HomeScreen: React.FunctionComponent = () => {
-  return <Homepage />;
+  return (
+    <></>
+    // <Homepage />
+  );
 };
 
 export default HomeScreen;
