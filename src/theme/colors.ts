@@ -2,6 +2,7 @@ export interface ColorsInterface {
   active: string;
   homeBackground: string;
   cartBackground: string;
+  linkBlue: string;
   buttonOff: string;
   buttonActive: string;
   primaryBlue: string;
@@ -12,8 +13,9 @@ export interface ColorsInterface {
 
 const colors: ColorsInterface = {
   active: "#e67a00",
-  homeBackground: "#008cb5",
+  homeBackground: "#edeeee",
   cartBackground: "#e9eded",
+  linkBlue: "#017185",
 
   buttonOff: "#FEE6B0",
   buttonActive: "#eeba37",
@@ -43,6 +45,10 @@ export const chooseColor = (color: string) => {
 
     case "cartBackground": {
       return colors.cartBackground;
+    }
+
+    case "linkBlue": {
+      return colors.linkBlue;
     }
 
     case "primary": {

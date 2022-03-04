@@ -22,26 +22,16 @@ type Cart = {
 const AddToCartButton: React.FunctionComponent<AddToCartButtonProps> = ({
   item,
 }) => {
-  // const data = {
-  //   name: "Crime and Punishment",
-  //   quantity: 30,
-  //   price: 12.99,
-  //   id: "123",
-  //   stockAmount: 300,
-  // };
-
-  const ctx = useCart();
+  const { addItemToCart } = useCart();
 
   const onClick = () => {
-    ctx.addItemToCart(item);
-    // ctx.clearCart();
-    console.log(ctx.cart?.cartItems.length);
+    addItemToCart(item);
   };
 
   return (
     <ButtonContainer onClick={onClick}>
       <Text fontSize={16} color="primary" bold>
-        Add to Cart +£{item.price}
+        Add to Cart
       </Text>
     </ButtonContainer>
   );

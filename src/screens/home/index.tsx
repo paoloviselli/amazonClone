@@ -21,10 +21,10 @@ import useStorage from "../../hooks/useStorage";
 //   },
 //   {
 //     id: "1",
-//     name: "NFL Football",
+//     name: "MacBook Pro 14",
 //     image:
-//       "https://firebasestorage.googleapis.com/v0/b/clone-bbb31.appspot.com/o/NFLFootball.png?alt=media&token=65be564a-5baa-4d89-8a92-63a7c648c3c5",
-//     price: 25,
+//       "https://firebasestorage.googleapis.com/v0/b/clone-bbb31.appspot.com/o/MacBook_Pro_14.jpeg?alt=media&token=b6aa5680-6490-4d7d-b9e5-fdf2a0d4cde1",
+//     price: 1899,
 //     quantity: 0,
 //     stockAmount: 100,
 //   },
@@ -37,32 +37,39 @@ import useStorage from "../../hooks/useStorage";
 //     quantity: 0,
 //     stockAmount: 100,
 //   },
+//   {
+//     id: "3",
+//     name: "Amazon Echo Dot",
+//     image:
+//       "https://firebasestorage.googleapis.com/v0/b/clone-bbb31.appspot.com/o/AmazonEcho.jpeg?alt=media&token=7544c655-da7d-47d3-8be6-7279b3aa2023",
+//     price: 79.99,
+//     quantity: 0,
+//     stockAmount: 100,
+//   },
+//   {
+//     id: "4",
+//     name: "12 Rules for life",
+//     image:
+//       "https://firebasestorage.googleapis.com/v0/b/clone-bbb31.appspot.com/o/12Rules.jpeg?alt=media&token=b5f68301-7281-4cc2-970f-055e77d76576",
+//     price: 19.99,
+//     quantity: 0,
+//     stockAmount: 100,
+//   },
+//   {
+//     id: "5",
+//     name: "Meditations",
+//     image:
+//       "https://firebasestorage.googleapis.com/v0/b/clone-bbb31.appspot.com/o/meditations.jpeg?alt=media&token=3fcafce0-54a2-444d-8716-254d3fe1ed82",
+//     price: 9.99,
+//     quantity: 0,
+//     stockAmount: 100,
+//   },
 // ];
-
-// type Storage = { storageItems: Item[] };
 
 interface HomepageProps {}
 
 const Homepage: React.FunctionComponent<HomepageProps> = () => {
   const { storage } = useStorage();
-
-  console.table(storage?.storageItems);
-
-  // const [data, setData] = useState<Storage>({ storageItems: [] });
-
-  // useEffect(() => {
-  //   const fetchHandler = async () => {
-  //     const fetchedData = (await (
-  //       await db.collection("storage").doc("vJ93ZkKjkBUnjzSIkEFu").get()
-  //     ).data()) as Storage;
-
-  //     // console.table(fetchedData.storageItems);
-
-  //     setData(fetchedData);
-  //   };
-
-  //   fetchHandler();
-  // }, []);
 
   // //pushes Dummy Data in Firebase to set Storage Items
   // useEffect(() => {

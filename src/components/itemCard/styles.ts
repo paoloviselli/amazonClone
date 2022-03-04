@@ -5,31 +5,40 @@ export const ItemCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: ${({ theme }) => theme.spacing.multiple(45)};
-  width: ${({ theme }) => theme.spacing.multiple(40)};
+  height: ${({ theme }) => theme.spacing.multiple(50)};
+  width: 28%;
   background-color: ${({ theme }) => theme.colors.white};
+  margin: ${({ theme }) => theme.spacing.triple};
+  padding: ${({ theme }) => theme.spacing.double} 0;
 `;
 
 export const TitleContainer = styled.div`
-  display: felx;
-  height: "10%";
+  display: flex;
+  width: ${({ theme }) => theme.spacing.multiple(30)};
+  justify-content: flex-start;
+`;
+
+export const PriceContainer = styled.div`
+  display: flex;
   width: ${({ theme }) => theme.spacing.multiple(30)};
   justify-content: flex-start;
 `;
 
 export const PictureContainer = styled.div`
-  display: felx;
+  display: flex;
   position: relative;
-  height: 80%;
+  height: 100%;
   width: ${({ theme }) => theme.spacing.multiple(30)};
   background-color: ${({ theme }) => theme.colors.dark};
+  margin-top: ${({ theme }) => theme.spacing.half};
+
+  margin-bottom: ${({ theme }) => theme.spacing.double};
 `;
 
 export const AddToCartButtonContainer = styled.div`
-  display: felx;
-  height: 10%;
+  display: flex;
   width: 100%;
   justify-content: flex-start;
-  align-items: start;
-  padding-top: ${({ theme }) => theme.spacing.single};
+  align-items: center;
+  justify-content: center;
 `;

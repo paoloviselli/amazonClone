@@ -11,7 +11,9 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
   return (
     <HeaderContainer>
       <Logo onClick={() => router.push("/displays")} />
-      <CartButton onClick={() => router.push("/displays/cart")} />
+      <a href="/displays/cart">
+        <CartButton onClick={() => {}} />
+      </a>
     </HeaderContainer>
   );
 };

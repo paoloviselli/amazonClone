@@ -11,7 +11,7 @@ const CartItemPricing: React.FunctionComponent<CartItemPricingProps> = ({
 }) => {
   return (
     <CartItemPricingContainer>
-      <Text fontSize={16} color="primary">
+      <Text fontSize={18} color="primary" bold>
         £ {item.price}
       </Text>
     </CartItemPricingContainer>
