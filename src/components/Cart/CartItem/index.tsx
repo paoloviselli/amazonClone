@@ -1,11 +1,10 @@
 import CartItemPricing from "./CartItemPricing";
-import { Item } from "../../../types/item/item";
+import { Item } from "../../../types/item/Item";
 import { calculateItemPrice } from "../../../utils/priceCalculations";
 import CartItemCTA from "./CartItemCTA";
 
 import { CartItemContainer, CartItemImage } from "./styles";
 import Image from "next/image";
-import ItemCard from "../../itemCard";
 
 interface CartItemProps {
   item: Item;
