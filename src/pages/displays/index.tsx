@@ -1,10 +1,9 @@
-import Homepage from "../../screens/Home";
+import Homepage from "../../screens/Home/index";
 
-const HomeScreen: React.FunctionComponent = () => {
-  return (
-    // <></>
-    <Homepage />
-  );
+interface HomeScreenProps {}
+
+const HomeScreen: React.FunctionComponent<HomeScreenProps> = () => {
+  return <Homepage />;
 };
 
 export default HomeScreen;
