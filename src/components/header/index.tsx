@@ -10,8 +10,8 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
   const router = useRouter();
   return (
     <HeaderContainer>
-      <Logo onClick={() => router.push("/displays")} />
-      <a href="/displays/cart">
+      <Logo onClick={() => router.push("/screens/home")} />
+      <a href="/screens/cart">
         <CartButton onClick={() => {}} />
       </a>
     </HeaderContainer>

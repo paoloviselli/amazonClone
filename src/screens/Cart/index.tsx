@@ -34,7 +34,7 @@ const Cart: React.FunctionComponent<CartProps> = () => {
             <Text fontSize={30} color="primary">
               Cart is empty
             </Text>
-            <Link href="/displays">Add something to it</Link>
+            <Link href="/screens/home">Add something to it</Link>
           </CartListContainer>
         ) : (
           <CartList item={cartItem} />

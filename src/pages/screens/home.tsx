@@ -1,4 +1,4 @@
-import Homepage from "../../screens/Home/index";
+import Homepage from "../../screens/Homepage/index";
 
 interface HomeScreenProps {}
 
