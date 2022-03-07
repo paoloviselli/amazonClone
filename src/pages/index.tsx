@@ -1,12 +1,13 @@
-import type { NextPage } from "next";
-import Homepage from "../screens/Home";
+// import type { NextPage } from "next";
+// import Cart from "../screens/Cart";
+// import Homepage from "../screens/Home";
 
-const Home: NextPage = () => {
-  return <Homepage />;
-  // <div></div>;
-};
+// const Home: NextPage = () => {
+//   return <></>;
+//   // return <div></div>;
+// };
 
-export default Home;
+// export default Home;
 
 // The below is to be pasted in an auth.tsx file localted in the same folder as this file
 
