@@ -11,7 +11,7 @@ interface CartListProps {
 const CartList: React.FunctionComponent<CartListProps> = ({ item }) => {
   const { cart } = useCart();
   return (
-    <CartListContainer>
+    <>
       <Text fontSize={28} color="primary" bold>
         Shopping Cart
       </Text>
@@ -20,7 +20,7 @@ const CartList: React.FunctionComponent<CartListProps> = ({ item }) => {
       {cart?.cartItems.map((el) => (
         <CartItem item={el} key={el.id} />
       ))}
-    </CartListContainer>
+    </>
   );
 };
 

@@ -1,15 +1,8 @@
 import Text from "../../shared/Text";
 import { ButtonContainer } from "./styles";
 import useCart from "../../../hooks/useCart";
-import { useState } from "react";
-import { Item } from "../../../types/item/Item";
-import {
-  calculateItemPrice,
-  fixDecimals,
-} from "../../../utils/priceCalculations";
 
-import { db } from "../../../../firebase/clientApp";
-import { getFirestore, doc } from "firebase/firestore";
+import { Item } from "../../../types/item/Item";
 
 interface AddToCartButtonProps {
   item: Item;

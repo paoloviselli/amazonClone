@@ -11,6 +11,8 @@ export type Pricing = {
   totalQuantity: number;
 };
 
+export type Cart = { cartItems: Item[] };
+
 // type AddItem = Omit<Item, "orderId">;
 interface CartContext {
   cart?: Cart;
@@ -22,8 +24,6 @@ interface CartContext {
   cartSet: (newCart: Cart) => void;
   isLoading: boolean;
 }
-
-export type Cart = { cartItems: Item[] };
 
 export const CartContext = React.createContext<CartContext>({
   cart: { cartItems: [] },
@@ -93,6 +93,8 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
     }
 
     db.collection("cart").doc("0w4VWR5NV2kTPjWMHdnq").set(cartToChange);
+
+    setCart(cartToChange);
   };
 
   //filters cart array in Local and overwrites firebase Cart with new cart without the deleted array
@@ -159,8 +161,7 @@ const CartProvider: React.FunctionComponent<CartProviderProps> = ({
       setCart(cartData);
     };
 
-    fetchHandeler();
-    setIsLoading(false);
+    fetchHandeler().then(() => setIsLoading(false));
   }, []);
 
   return (
