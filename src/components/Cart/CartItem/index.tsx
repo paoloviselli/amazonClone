@@ -14,7 +14,12 @@ const CartItem: React.FunctionComponent<CartItemProps> = ({ item }) => {
   return (
     <CartItemContainer>
       <CartItemImage>
-        <Image src={item.image} alt="cartItem Pic" layout="fill" />
+        <Image
+          src={item.image}
+          alt="cartItem Pic"
+          layout="fill"
+          objectFit="contain"
+        />
       </CartItemImage>
       <CartItemCTA item={item} />
       <CartItemPricing item={item} />

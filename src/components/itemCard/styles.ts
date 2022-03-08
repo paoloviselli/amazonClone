@@ -29,7 +29,7 @@ export const PictureContainer = styled.div`
   position: relative;
   height: 100%;
   width: ${({ theme }) => theme.spacing.multiple(30)};
-  background-color: ${({ theme }) => theme.colors.dark};
+  background-color: ${({ theme }) => theme.colors.white};
   margin-top: ${({ theme }) => theme.spacing.half};
 
   margin-bottom: ${({ theme }) => theme.spacing.double};

@@ -37,7 +37,7 @@ const ItemCard: React.FunctionComponent<ItemCardProps> = ({ item }) => {
           src={item.image}
           alt="Item picture"
           layout="fill"
-          objectFit="fill"
+          objectFit="contain"
         />
       </PictureContainer>
       <AddToCartButtonContainer>
